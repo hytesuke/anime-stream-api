@@ -1,0 +1,22 @@
+{
+  "name": "anime-stream-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hytesuke/anime-stream-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hytesuke/anime-stream-api/issues"
+  },
+  "homepage": "https://github.com/hytesuke/anime-stream-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
