@@ -26,16 +26,16 @@ const options = {
     useFindAndModify: true,
 };
 
-const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DB}?retryWrites=true&w=majority`;
 
-console.log(url);
+//console.log(url);
 // connection to mongodb 
 mongoose.connect(url, options);
 
 // mongodb instance 
 const db = mongoose.connection;
 db.on('connected', () => {
-    console.log(connected("Mongoose default connection is open to", url));
+    console.log(connected("Mongoose default connection is open"));
 });
 
 db.on('error', (err) => {
@@ -52,4 +52,13 @@ process.on('SIGINT', () => {
         console.log(termination("Mongoose default connection is disconnected due to application termination"));
         process.exit(0)
     });
+});
+process.on('SIGTERM', () => {
+    db.close();
+});
+process.on('SIGUSR2', () => {
+    db.close();
+});
+process.on('exit', () => {
+    db.close();
 });

@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
-import '../api/routes';
+import routesV1 from '../api/routes';
 
 // Use express's app 
 const app = express();
@@ -30,7 +30,7 @@ app.all('*', (req, res, next) => {
 });
 
 // Use routes
-//app.use('/api', routesV1);
+app.use('/api', routesV1);
 
 app.get('/', (req, res) => {
     return res.status(200).json({

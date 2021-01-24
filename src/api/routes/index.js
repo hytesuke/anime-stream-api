@@ -16,4 +16,4 @@ fs.readdir(__dirname, (err, dirs) => {
     });
 });
 
-//export default router;
+export default router;
