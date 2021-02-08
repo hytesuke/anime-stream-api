@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import routesV1 from '../api/routes';
+import '../utils/auth/passport';
 
 // Use express's app 
 const app = express();

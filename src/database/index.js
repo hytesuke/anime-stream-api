@@ -26,16 +26,16 @@ const options = {
     useFindAndModify: true,
 };
 
-const url = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DB}?retryWrites=true&w=majority`;
-
-//console.log(url);
+//const url = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DB}?retryWrites=true&w=majority`;
+const url = process.env.MONGO_DB_URL;
+console.log(url);
 // connection to mongodb 
 mongoose.connect(url, options);
 
 // mongodb instance 
 const db = mongoose.connection;
 db.on('connected', () => {
-    console.log(connected("Mongoose default connection is open"));
+    console.log(connected("Mongoose default connection is open"), url);
 });
 
 db.on('error', (err) => {

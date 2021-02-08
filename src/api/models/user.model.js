@@ -1,6 +1,4 @@
-import mongoose, {
-    Schema
-} from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const UserModel = new Schema({
@@ -20,7 +18,8 @@ const UserModel = new Schema({
             type: String
         },
         lists_ip: [{
-            type: String
+            type: String,
+            date: Date
         }],
         // Token
         token_active_account: {
@@ -31,7 +30,6 @@ const UserModel = new Schema({
         },
     },
 
-
     email: {
         type: String,
         required: true,
@@ -41,7 +39,7 @@ const UserModel = new Schema({
         },
     },
     password: {
-        type: Number
+        type: String
     },
     login: {
         name: String,
@@ -53,5 +51,29 @@ const UserModel = new Schema({
     }
 });
 
+UserModel.pre('save', function(next) {
+    var user = this;
 
-module.exports = mongoose.model('User', UserModel);
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
+
+    // generate a salt
+    bcrypt.genSalt(8, function(err, salt) {
+        if (err) return next(err);
+
+        // hash the password using our new salt
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) return next(err);
+            // override the cleartext password with the hashed one
+            user.password = hash;
+            next();
+        });
+    });
+    
+});
+     
+UserModel.methods.comparePassword = function(candidatePassword) {
+    return bcrypt.compareSync(candidatePassword, this.password)
+};
+
+export default mongoose.model('User', UserModel);

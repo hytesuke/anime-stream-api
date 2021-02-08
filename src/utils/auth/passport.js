@@ -1,7 +1,8 @@
 'use strict'
 
-import JwtStrategy from 'passport\Strategy';
-import ExctractJwt from 'passport-jwt\ExtractJwt';
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
+import passport from 'passport';
 import User from '../../api/models/user.model';
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
