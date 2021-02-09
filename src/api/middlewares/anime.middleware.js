@@ -37,9 +37,12 @@ export async function findByQuery(req, res) {
 
 /* POST */
 export async function create(req, res){
+    console.log("ok");
     try {
+        console.log(req.body);
         const anime = new models.Anime(req.body);
-        await anime.save();
+        console.log(anime);
+        anime.save();
         return res.status(201).json({ status: 200, success: true, data: anime });
     } catch (error){
         return res.status(400).json({ status: 400, success: false, error: error.message });
